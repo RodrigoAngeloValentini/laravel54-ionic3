@@ -1,0 +1,6 @@
+*
+!public/
+!.gitignore
+!files
+!files/**/*
+!videos_test/.gitkeep
