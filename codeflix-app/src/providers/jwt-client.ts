@@ -53,7 +53,7 @@ export class JwtClient {
     }
 
     accessToken(jwtCredentials: JwtCredentials): Promise<string>{
-        return this.authHttp.post(`${ENV.API_URL}/api/access_token`, jwtCredentials)
+        return this.authHttp.post(`${ENV.API_URL}/access_token`, jwtCredentials)
             .toPromise()
             .then((response: Response) => {
                 let token = response.json().token;
@@ -67,7 +67,7 @@ export class JwtClient {
         let headers = new Headers;
         headers.set('Authorization', `Bearer ${this._token}`);
         let requestOptions = new RequestOptions({headers});
-        return this.authHttp.post(`${ENV.API_URL}/api/logout`, {}, requestOptions)
+        return this.authHttp.post(`${ENV.API_URL}/logout`, {}, requestOptions)
             .toPromise()
             .then((response: Response) => {
                 this._token = null;

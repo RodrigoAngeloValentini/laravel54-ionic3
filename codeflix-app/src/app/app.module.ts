@@ -6,20 +6,22 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login'
+import { MySettingsPage } from '../pages/my-settings/my-settings'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPageModule } from "../pages/login/login.module";
+import { MySettingsPageModule } from "../pages/my-settings/my-settings.module"
 import { Http, HttpModule, XHRBackend } from "@angular/http";
 import { JwtClient } from '../providers/jwt-client';
 import { Storage, IonicStorageModule } from "@ionic/storage";
-import {AuthConfig, AuthHttp, JwtHelper} from "angular2-jwt";
+import { AuthConfig, AuthHttp, JwtHelper } from "angular2-jwt";
 import { Auth } from '../providers/auth';
 import { Env } from '../models/env';
 import { DefaultXHRBackend } from '../providers/default-xhr-backend';
 import { Redirector } from '../providers/redirector';
 import { Facebook } from "@ionic-native/facebook";
-import {UserResource} from "../providers/user-resource";
+import { UserResource } from "../providers/user-resource";
 
 declare var ENV: Env;
 
@@ -27,7 +29,7 @@ declare var ENV: Env;
     declarations: [
         MyApp,
         HomePage,
-        ListPage,
+        ListPage
     ],
     imports: [
         HttpModule,
@@ -36,9 +38,11 @@ declare var ENV: Env;
             links: [
                 {component: LoginPage, name: 'LoginPage', segment: 'login'},
                 {component: HomePage, name: 'HomePage', segment: 'home'},
+                {component: MySettingsPage, name: 'MySettingsPage', segment: 'my-settings'},
             ]
         }),
         LoginPageModule,
+        MySettingsPageModule,
         IonicStorageModule.forRoot({
             driverOrder: ['localstorage']
         })
@@ -47,7 +51,7 @@ declare var ENV: Env;
     entryComponents: [
         MyApp,
         HomePage,
-        ListPage,
+        ListPage
     ],
     providers: [
         StatusBar,

@@ -25204,11 +25204,11 @@ ion-app ion-menu ion-content {
   color: #f4f4f4 !important;
 }
 
-.toast-login-error .toast-container {
+.toast-reverse .toast-container {
   background-color: #f4f4f4 !important;
 }
 
-.toast-login-error .toast-container .toast-message {
+.toast-reverse .toast-container .toast-message {
   color: #222 !important;
 }
 

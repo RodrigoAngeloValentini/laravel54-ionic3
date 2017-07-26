@@ -17,7 +17,7 @@ export class Auth {
 
     constructor(public jwtClient: JwtClient, public fb:Facebook, public userResource:UserResource) {
         this.user().then((user) => {
-            console.log(user);
+
         })
     }
 

@@ -32,7 +32,7 @@ export class LoginPage {
               message: 'Email ou senha inválidos',
               duration: 3000,
               position: 'top',
-              cssClass: 'toast-login-error'
+              cssClass: 'toast-reverse'
           });
 
           toast.present();

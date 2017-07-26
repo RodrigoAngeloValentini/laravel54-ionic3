@@ -55,7 +55,13 @@ export class MyApp {
 
   logout(){
     this.auth.logout().then(() => {
-
+      this.nav.setRoot('LoginPage');
+    }).catch(() => {
+      this.nav.setRoot('LoginPage');
     });
+  }
+
+  goToMySettings(){
+    this.nav.setRoot('MySettingsPage')
   }
 }
