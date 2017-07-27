@@ -42,6 +42,8 @@ Route::group(['prefix' => 'admin','as' => 'admin.','namespace' => 'Admin\\'], fu
         Route::get('/change/password', 'UserController@showPasswordForm')->name('change.password');
         Route::put('update/password/{id}', 'UserController@updatePassword')->name('update.password');
         Route::resource('categories', 'CategoryController');
+        Route::resource('plans', 'PlansController');
+
         Route::get('series/{serie}/thumb_asset', 'SeriesController@thumbAsset')->name('series.thumb_asset');
         Route::get('series/{serie}/thumb_small_asset', 'SeriesController@thumbSmallAsset')->name('series.thumb_small_asset');
         Route::resource('series', 'SeriesController');

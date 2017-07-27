@@ -32,7 +32,7 @@ return [
     'facebook' => [
         'client_id' => '276399702766102',
         'client_secret' => 'ec5987eb0184e6b2ba41384714c02c2d',
-        'redirect' => 'http://localhost:8000/'
+        'redirect' => 'http://localhost:8001/'
     ],
 
     'stripe' => [

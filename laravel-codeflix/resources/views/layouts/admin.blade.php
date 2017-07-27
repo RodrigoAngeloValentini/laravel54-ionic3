@@ -44,6 +44,15 @@
                 [
                     'link'=> route('admin.videos.index'),
                     'title'=>'Vídeos'
+                ],
+                [
+                    'Vendas',
+                    [
+                        [
+                            'link' => route('admin.plans.index'),
+                            'title' => 'Plano'
+                        ]
+                    ]
                 ]
             ];
 

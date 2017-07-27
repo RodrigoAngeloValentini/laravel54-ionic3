@@ -3,6 +3,9 @@
     <ion-toolbar color="dark">
       <ion-title>CodeFlix - Menu</ion-title>
       <ion-item menuClose color="dark" (click)="goToMySettings()">
+        <ion-avatar item-left>
+          <img [src]="gravatarUrl">
+        </ion-avatar>
         <h2>{{user?.name}}</h2>
       </ion-item>
     </ion-toolbar>

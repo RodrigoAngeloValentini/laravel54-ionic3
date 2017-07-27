@@ -21,7 +21,7 @@ class RegisterUsersController extends Controller
         $authorization = $request->header('Authorization');
         $accessToken = str_replace('Bearer ', '', $authorization);
 
-        $facebook = \Socialite::drive('facebook');
+        $facebook = \Socialite::driver('facebook');
         $userSocial = $facebook->userFromToken($accessToken);
 
         $user = $this->repository->findByField('email', $userSocial->email)->first();

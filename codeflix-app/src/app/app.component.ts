@@ -8,6 +8,7 @@ import { ListPage } from '../pages/list/list';
 import { LoginPage } from "../pages/login/login";
 import { Auth } from "../providers/auth";
 import { Redirector } from "../providers/redirector";
+import md5 from 'crypto-md5';
 
 @Component({
   templateUrl: 'app.html'
@@ -19,6 +20,7 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
   user: any;
+  gravatarUrl = '';
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public auth:Auth, public redirector: Redirector) {
     this.initializeApp();
@@ -32,8 +34,9 @@ export class MyApp {
   }
 
   initializeApp() {
-    this.auth.user().then(user => {
+    this.auth.userSubject().subscribe(user => {
       this.user = user;
+      this.gravatar();
     });
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -41,6 +44,12 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+  }
+
+  gravatar(){
+    if(this.user){
+      this.gravatarUrl = `https://secure.gravatar.com/avatar/${md5(this.user.email,'hex')}`
+    }
   }
 
   ngAfterViewInit(){
@@ -64,4 +73,6 @@ export class MyApp {
   goToMySettings(){
     this.nav.setRoot('MySettingsPage')
   }
+
+
 }
