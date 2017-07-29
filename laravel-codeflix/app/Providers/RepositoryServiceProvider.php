@@ -2,8 +2,12 @@
 
 namespace CodeFlix\Providers;
 
+use CodeFlix\Repositories\OrderRepository;
+use CodeFlix\Repositories\OrderRepositoryEloquent;
 use CodeFlix\Repositories\PlanRepository;
 use CodeFlix\Repositories\PlanRepositoryEloquent;
+use CodeFlix\Repositories\SubscriptionRepository;
+use CodeFlix\Repositories\SubscriptionRepositoryEloquent;
 use CodeFlix\Repositories\UserRepository;
 use CodeFlix\Repositories\UserRepositoryEloquent;
 use CodeFlix\Repositories\CategoryRepository;
@@ -39,5 +43,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(SerieRepository::class, SerieRepositoryEloquent::class);
         $this->app->bind(VideoRepository::class, VideoRepositoryEloquent::class);
         $this->app->bind(PlanRepository::class, PlanRepositoryEloquent::class);
+        $this->app->bind(OrderRepository::class, OrderRepositoryEloquent::class);
+        $this->app->bind(SubscriptionRepository::class, SubscriptionRepositoryEloquent::class);
     }
 }

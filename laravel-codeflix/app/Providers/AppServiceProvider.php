@@ -2,6 +2,7 @@
 
 namespace CodeFlix\Providers;
 
+use CodeFlix\Exceptions\SubscriptionInvalidException;
 use CodeFlix\Models\Video;
 use Dingo\Api\Exception\Handler;
 use Illuminate\Auth\AuthenticationException;
@@ -65,6 +66,12 @@ class AppServiceProvider extends ServiceProvider
                 'error' => $exception->getMessage(),
                 'validation_errors' => $exception->validator->getMessageBag()->toArray()
             ], 422);
+        });
+        $handler->register(function (SubscriptionInvalidException $exception){
+            return response()->json([
+                'error' => 'subscription_valid_not_fuound',
+                'validation_errors' => $exception->getMessage()
+            ], 403);
         });
     }
 }

@@ -2,11 +2,13 @@
 
 namespace CodeFlix\Models;
 
+use Bootstrapper\Interfaces\TableInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
-class Plan extends Model
+class Plan extends Model implements Transformable, TableInterface
 {
     const DURATION_YEARLY = 1;
     const DURATION_MONTHLY = 2;
@@ -36,7 +38,7 @@ class Plan extends Model
             case '#':
                 return $this->id;
             case 'Nome':
-                return $this->nome;
+                return $this->name;
             case 'Descrição':
                 return $this->description;
             case 'Duração':

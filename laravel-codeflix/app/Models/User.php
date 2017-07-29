@@ -25,6 +25,22 @@ class User extends Authenticatable implements TableInterface, JWTSubject
         'password', 'remember_token',
     ];
 
+    public function subscriptions(){
+        return $this->hasManyThrough(Subscription::class, Order::class);
+    }
+
+    public function hasSubscriptionValid(){
+        $valid = false;
+        $subscriptions = $this->subscriptions;
+        foreach ($subscriptions as $subscription){
+            $valid = !$subscription->isExpired();
+            if($valid){
+                break;
+            }
+        }
+        return $valid;
+    }
+
     public static function generatePassword($password = null)
     {
         return !$password ? bcrypt(str_random(8)) : bcrypt($password);

@@ -32,7 +32,7 @@ class PlansController extends Controller
             'url' => route('admin.plans.store'),
         ]);
 
-        return view('admin.categories.create', compact('form'));
+        return view('admin.plans.create', compact('form'));
     }
 
     public function store(Request $request)

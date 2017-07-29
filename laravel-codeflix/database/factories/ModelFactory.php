@@ -84,3 +84,15 @@ $factory->state(\CodeFlix\Models\Plan::class, \CodeFlix\Models\Plan::DURATION_YE
         'duration' => \CodeFlix\Models\Plan::DURATION_YEARLY
     ];
 });
+
+$factory->define(\CodeFlix\Models\Order::class, function(Faker\Generator $faker){
+   return [
+       'value' => $faker->randomFloat(2, 50, 100),
+   ];
+});
+
+//$factory->define(\CodeFlix\Models\Subscription::class, function(Faker\Generator $faker){
+//    return [
+//
+//    ];
+//});
