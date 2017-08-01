@@ -18,7 +18,7 @@ class User extends Authenticatable implements TableInterface, JWTSubject
     const ROLE_CLIENT=2;
 
     protected $fillable = [
-        'name', 'email', 'password','role'
+        'name', 'email', 'password','role','cpf'
     ];
 
     protected $hidden = [
@@ -79,7 +79,8 @@ class User extends Authenticatable implements TableInterface, JWTSubject
             'user' => [
                 'id' => $this->id,
                 'name' => $this->name,
-                'email' => $this->email
+                'email' => $this->email,
+                'subscription_valid' => $this->hasSubscriptionValid()
             ]
         ];
     }

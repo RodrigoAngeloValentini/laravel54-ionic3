@@ -7,6 +7,8 @@ import {Redirector} from "./redirector";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
+import {HomePage} from "../pages/home/home";
+import {LoginPage} from "../pages/login/login";
 
 @Injectable()
 export class DefaultXHRBackend extends XHRBackend{
@@ -24,7 +26,7 @@ export class DefaultXHRBackend extends XHRBackend{
           return response;
         })
         .catch(responseError => {
-          this.unauthenticated(responseError);
+          this.onResponseError(responseError);
           return Observable.throw(responseError);
         });
 
@@ -40,10 +42,17 @@ export class DefaultXHRBackend extends XHRBackend{
     }
   }
 
-  unauthenticated(responseError: Response){
+  onResponseError(responseError: Response){
     let redirector = appContainer().get(Redirector);
-    if(responseError.status === 401){
-      redirector.redirector();
+    switch (responseError.status){
+      case 401:
+        redirector.redirector();
+        break;
+      case 403:
+        let data = responseError.json();
+        let toHomePage = data.hasOwnProperty('error') && data.error == 'subscription_valid_not_found';
+        redirector.redirector(toHomePage ? 'HomePage' : 'LoginPage');
+        break;
     }
   }
 }

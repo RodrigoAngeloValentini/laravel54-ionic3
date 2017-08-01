@@ -37,6 +37,8 @@ ApiRoute::version('v1', function (){
             });
 
             ApiRoute::patch('/user/settings', 'UserController@updateSettings');
+            ApiRoute::patch('/user/cpf', 'UserController@addCpf');
+            ApiRoute::get('/plans', 'PlansController@index');
             ApiRoute::post('/plans/{plan}/payments', 'PaymentsController@store');
 
             ApiRoute::group(['middleware' => 'check-subscriptions'], function(){

@@ -21,7 +21,17 @@ import { Env } from '../models/env';
 import { DefaultXHRBackend } from '../providers/default-xhr-backend';
 import { Redirector } from '../providers/redirector';
 import { Facebook } from "@ionic-native/facebook";
-import { UserResource } from "../providers/user-resource";
+import { UserResource } from "../providers/resources/user.resource";
+import { PaymentPage } from "../pages/payment/payment";
+import { PlansPage } from "../pages/plans/plans";
+import { AddCpfPage } from "../pages/add-cpf/add-cpf";
+import { HomeSubscriberPage } from "../pages/home-subscriber/home-subscriber";
+import { PaymentPageModule } from "../pages/payment/payment.module";
+import { PlansPageModule } from "../pages/plans/plans.module";
+import { AddCpfPageModule } from "../pages/add-cpf/add-cpf.module";
+import { HomeSubscriberPageModule } from "../pages/home-subscriber/home-subscriber.module";
+import { TextMaskModule } from "angular2-text-mask";
+import { PlanResource } from '../providers/resources/plan.resource';
 
 declare var ENV: Env;
 
@@ -34,15 +44,24 @@ declare var ENV: Env;
     imports: [
         HttpModule,
         BrowserModule,
+        TextMaskModule,
         IonicModule.forRoot(MyApp,{},{
             links: [
                 {component: LoginPage, name: 'LoginPage', segment: 'login'},
                 {component: HomePage, name: 'HomePage', segment: 'home'},
                 {component: MySettingsPage, name: 'MySettingsPage', segment: 'my-settings'},
+                {component: PaymentPage, name: 'PaymentPage', segment: 'plan/:plan/payment'},
+                {component: PlansPage, name: 'PlansPage', segment: 'plans'},
+                {component: AddCpfPage, name: 'AddCpfPage', segment: 'add-cpf'},
+                {component: HomeSubscriberPage, name: 'HomeSubscriberPage', segment: 'subscriber/home'}
             ]
         }),
         LoginPageModule,
         MySettingsPageModule,
+        PaymentPageModule,
+        PlansPageModule,
+        AddCpfPageModule,
+        HomeSubscriberPageModule,
         IonicStorageModule.forRoot({
             driverOrder: ['localstorage']
         })
@@ -62,6 +81,7 @@ declare var ENV: Env;
         Redirector,
         Facebook,
         UserResource,
+        PlanResource,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         {
             provide: AuthHttp,

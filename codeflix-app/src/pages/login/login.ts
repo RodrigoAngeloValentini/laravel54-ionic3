@@ -3,6 +3,7 @@ import {IonicPage, MenuController, NavController, NavParams, ToastController} fr
 import 'rxjs/add/operator/toPromise';
 import {Auth} from "../../providers/auth";
 import {HomePage} from "../home/home";
+import {HomeSubscriberPage} from "../home-subscriber/home-subscriber";
 
 @IonicPage()
 @Component({
@@ -25,8 +26,8 @@ export class LoginPage {
   }
 
   login(){
-      this.auth.login(this.user).then(() => {
-          this.afterLogin();
+      this.auth.login(this.user).then((user) => {
+          this.afterLogin(user);
       }).catch(() => {
           let toast = this.toastCtrl.create({
               message: 'Email ou senha inválidos',
@@ -40,8 +41,8 @@ export class LoginPage {
   }
 
   loginFacebook(){
-      this.auth.loginFacebook().then(() => {
-          this.afterLogin();
+      this.auth.loginFacebook().then((user) => {
+          this.afterLogin(user);
       }).catch((error)=>{
           let toast = this.toastCtrl.create({
               message: 'Erro ao realizar login no facebook:' + error,
@@ -54,9 +55,9 @@ export class LoginPage {
       });
   }
 
-  afterLogin(){
+  afterLogin(user){
       this.menuCtrl.enable(true);
-      this.navCtrl.push(HomePage);
+      this.navCtrl.push(user.subscription_valid ? HomeSubscriberPage : HomePage);
   }
 
 }

@@ -3,6 +3,7 @@
 namespace CodeFlix\Http\Controllers\Api;
 
 use CodeFlix\Http\Controllers\Controller;
+use CodeFlix\Http\Requests\AddCpfRequest;
 use CodeFlix\Http\Requests\UserSettingRequest;
 use CodeFlix\Repositories\UserRepository;
 
@@ -21,5 +22,13 @@ class UserController extends Controller
         $this->repository->update($data, $request->user('api')->id);
 
         return $request->user('api');
+    }
+
+    public function addCpf(AddCpfRequest $request)
+    {
+        $user = $this->repository->update([
+            'cpf' => $request->input('cpf')
+        ], $request->user('api')->id);
+        return $user;
     }
 }
