@@ -4,6 +4,8 @@ namespace CodeFlix\Providers;
 
 use CodeFlix\Repositories\OrderRepository;
 use CodeFlix\Repositories\OrderRepositoryEloquent;
+use CodeFlix\Repositories\PayPalWebProfileRepository;
+use CodeFlix\Repositories\PayPalWebProfileRepositoryEloquent;
 use CodeFlix\Repositories\PlanRepository;
 use CodeFlix\Repositories\PlanRepositoryEloquent;
 use CodeFlix\Repositories\SubscriptionRepository;
@@ -45,5 +47,6 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(PlanRepository::class, PlanRepositoryEloquent::class);
         $this->app->bind(OrderRepository::class, OrderRepositoryEloquent::class);
         $this->app->bind(SubscriptionRepository::class, SubscriptionRepositoryEloquent::class);
+        $this->app->bind(PayPalWebProfileRepository::class, PayPalWebProfileRepositoryEloquent::class);
     }
 }

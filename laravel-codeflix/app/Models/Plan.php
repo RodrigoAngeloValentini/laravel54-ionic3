@@ -20,12 +20,21 @@ class Plan extends Model implements Transformable, TableInterface
         'name',
         'description',
         'value',
-        'duration'
+        'duration',
+        'paypal_web_profile_id'
     ];
 
     protected $casts = [
         'duration' => 'integer'
     ];
+
+    public function getSkuAttribute(){
+        return "plan={$this->id}";
+    }
+
+    public function webProfile(){
+        return $this->belongsTo(PayPalWebProfile::class, 'paypal_web_profile_id');
+    }
 
     public function getTableHeaders()
     {

@@ -258,6 +258,7 @@ return [
         'Thumbnail' => Bootstrapper\Facades\Thumbnail::class,
 
         'FormBuilder' => Kris\LaravelFormBuilder\Facades\FormBuilder::class,
+        'BootstrapImage' => \Bootstrapper\Facades\Image::class,
         'UserVerification' => Jrean\UserVerification\Facades\UserVerification::class,
 
         'Image' => \Folklore\Image\Facades\Image::class,

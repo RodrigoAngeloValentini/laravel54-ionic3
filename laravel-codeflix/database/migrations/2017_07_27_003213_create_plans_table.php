@@ -19,7 +19,8 @@ class CreatePlansTable extends Migration
             $table->string('description');
             $table->float('value');
             $table->smallInteger('duration');
-
+            $table->integer('paypal_web_profile_id')->unsigned();
+            $table->foreign('paypal_web_profile_id')->references('id')->on('paypal_web_profiles');
             $table->softDeletes();
             $table->timestamps();
 
