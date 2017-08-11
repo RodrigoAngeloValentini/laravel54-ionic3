@@ -32,6 +32,7 @@ import { AddCpfPageModule } from "../pages/add-cpf/add-cpf.module";
 import { HomeSubscriberPageModule } from "../pages/home-subscriber/home-subscriber.module";
 import { TextMaskModule } from "angular2-text-mask";
 import { PlanResource } from '../providers/resources/plan.resource';
+import { PaymentResource } from '../providers/resources/payment.resource';
 
 declare var ENV: Env;
 
@@ -82,6 +83,7 @@ declare var ENV: Env;
         Facebook,
         UserResource,
         PlanResource,
+        PaymentResource,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         {
             provide: AuthHttp,

@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Seeder;
 
 class OrdersTableSeeder extends Seeder
@@ -11,11 +10,11 @@ class OrdersTableSeeder extends Seeder
      */
     public function run()
     {
-        $users = app(\CodeFlix\Repositories\UserRepository::class->all());
-        $orders = factory(\CodeFlix\Models\Order::class, 30)->make();
-        $orders->each(function($order) use ($users){
-           $order->user_id = $users->random()->id;
-           $order->save();
+        $users = app(\CodeFlix\Repositories\UserRepository::class)->all();
+        $orders = factory(\CodeFlix\Models\Order::class,30)->make();
+        $orders->each(function($order)use($users){
+            $order->user_id = $users->random()->id;
+            $order->save();
         });
     }
 }

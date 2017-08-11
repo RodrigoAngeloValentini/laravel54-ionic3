@@ -3,42 +3,38 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <h3>Exibir Categoria</h3>
+            <h3>Visualizar categoria</h3>
             <?php
             $iconEdit = Icon::create('pencil');
-            $iconDestroy = Icon::create('remove');
-
-            $formDelete = FormBuilder::plain([
+            $iconRemove = Icon::create('trash');
+            ?>
+            {!! Button::primary($iconEdit)->asLinkTo(route('admin.categories.edit',['category'=>$category->id])) !!}
+            {!!
+                Button::danger($iconRemove)
+                ->asLinkTo(route('admin.categories.destroy',['category'=>$category->id]))
+                ->addAttributes(['onclick'=>"event.preventDefault();document.getElementById(\"form-delete\").submit();"])
+            !!}
+            <?php $formDelete = FormBuilder::plain([
                 'id' => 'form-delete',
-                'route' => ['admin.categories.destroy', 'category' =>
-                    $category->id],
                 'method' => 'DELETE',
                 'style' => 'display:none',
-            ]);
-            ?>
-            {!! Button::primary($iconEdit)->asLinkTo(route('admin.categories.edit', ['category'=>$category->id])) !!}
-            {!! Button::danger($iconDestroy)
-                ->asLinkTo(route('admin.categories.destroy', ['category'=>$category->id]))
-                ->addAttributes(['onclick'=> "event.preventDefault();document.getElementById(\"form-delete\").submit()
-                ;"])
-            !!}
+                'route'=>['admin.categories.destroy','category'=>$category->id]
+            ]);?>
             {!! form($formDelete) !!}
-            <br>
-            <br>
-            <div class="row">
-                <table class="table table-bordered">
-                    <tbody>
-                    <tr>
-                        <th scope="row">#</th>
-                        <td>{!! $category->id !!}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Nome</th>
-                        <td>{!! $category->name !!}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+            <br/><br/>
+
+            <table class="table table-bordered">
+                <tbody>
+                <tr>
+                    <th scope="row">#</th>
+                    <td>{{$category->id}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Nome</th>
+                    <td>{{$category->name}}</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 @endsection

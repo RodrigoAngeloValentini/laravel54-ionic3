@@ -3,6 +3,7 @@
 namespace CodeFlix\Events;
 
 use CodeFlix\Models\Plan;
+use PayPal\Api\Payment;
 
 class PayPalPaymentApproved
 {
@@ -12,11 +13,16 @@ class PayPalPaymentApproved
     private $plan;
 
     private $order;
+    /**
+     * @var Payment
+     */
+    private $payment;
 
-    public function __construct(Plan $plan)
+    public function __construct(Plan $plan, Payment $payment)
     {
         //
         $this->plan = $plan;
+        $this->payment = $payment;
     }
 
     public function getPlan()
@@ -33,5 +39,10 @@ class PayPalPaymentApproved
     {
         $this->order = $order;
         return $this;
+    }
+
+    public function getPayment()
+    {
+        return $this->payment;
     }
 }

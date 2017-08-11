@@ -11,8 +11,10 @@ use PayPal\Api\ItemList;
 use PayPal\Api\Payee;
 use PayPal\Api\Payer;
 use PayPal\Api\Payment;
+use PayPal\Api\PaymentExecution;
 use PayPal\Api\RedirectUrls;
 use PayPal\Api\Transaction;
+use PayPal\Exception\PayPalConnectionException;
 use PayPal\Rest\ApiContext;
 
 class PaymentClient
@@ -28,9 +30,36 @@ class PaymentClient
         $this->apiContext = $apiContext;
     }
 
-    public function doPayment(Plan $plan){
+    public function get($paymentId)
+    {
+        return Payment::get($paymentId, $this->apiContext);
+    }
 
-        $event = new PayPalPaymentApproved($plan);
+    public function doPayment(Plan $plan, $paymentId, $payerId)
+    {
+        $payment = Payment::get($paymentId, $this->apiContext);
+
+        $execution = new PaymentExecution();
+        $execution->setPayerId($payerId);
+
+        $datails = new Details();
+        $datails->setShipping(0)
+            ->setTax(0)
+            ->setSubtotal($plan->value);
+
+        $ammount = new Amount();
+        $ammount->setCurrency('BRL')
+            ->setTotal($plan->value)
+            ->setDetails($datails);
+
+        $transaction = new Transaction();
+        $transaction->setAmount($ammount);
+
+        $execution->addTransaction($transaction);
+
+        $payment->execute($execution, $this->apiContext);
+
+        $event = new PayPalPaymentApproved($plan, $payment);
         event($event);
         return $event->getOrder();
     }
@@ -64,7 +93,8 @@ class PaymentClient
         $payee->setEmail(env('PAYPAL_PAYEE_EMAIL'));
 
         $transaction = new Transaction();
-        $transaction->setAmount($ammount)
+        $transaction->setItemList($itemList)
+            ->setAmount($ammount)
             ->setDescription("Pagamento do plano de assinatura")
             ->setPayee($payee)
             ->setInvoiceNumber(uniqid());
@@ -82,7 +112,13 @@ class PaymentClient
             ->setRedirectUrls($redirectUrls)
             ->setTransactions([$transaction]);
 
-        $payment->create($this->apiContext);
+        try{
+            $payment->create($this->apiContext);
+        }catch (PayPalConnectionException $exception){
+            \Log::error($exception->getMessage(), ['data' => $exception->getData()]);
+            throw $exception;
+        }
+
 
         return $payment;
     }

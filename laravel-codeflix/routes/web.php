@@ -38,6 +38,8 @@ Route::group(['prefix' => 'admin','as' => 'admin.','namespace' => 'Admin\\'], fu
         Route::get('dashboard', function (){
             return view('admin.dashboard');
         })->name('dashboard');
+        Route::get('users/settings','Auth\UserSettingsController@edit')->name('user_settings.edit');
+        Route::put('users/settings','Auth\UserSettingsController@update')->name('user_settings.update');
         Route::resource('users', 'UserController');
         Route::get('/change/password', 'UserController@showPasswordForm')->name('change.password');
         Route::put('update/password/{id}', 'UserController@updatePassword')->name('update.password');

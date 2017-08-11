@@ -7,6 +7,7 @@ use CodeFlix\Models\Plan;
 use CodeFlix\PayPal\PaymentClient;
 use Illuminate\Http\Request;
 use CodeFlix\Http\Controllers\Controller;
+use PayPal\Api\Payment;
 
 class PaymentsController extends Controller
 {
@@ -28,7 +29,7 @@ class PaymentsController extends Controller
 
     public function store(OrderRequest $request, Plan $plan)
     {
-        $order = $this->paymentClient->doPayment($plan);
+        $order = $this->paymentClient->doPayment($plan, $request->get('payment_id'), $request->get('payer_id'));
         return $order;
     }
 }

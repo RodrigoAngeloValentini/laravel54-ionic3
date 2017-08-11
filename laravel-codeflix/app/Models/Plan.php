@@ -32,6 +32,10 @@ class Plan extends Model implements Transformable, TableInterface
         return "plan={$this->id}";
     }
 
+    public static function getIdFromSku($sku){
+        return str_replace('plan-', '', $sku);
+    }
+
     public function webProfile(){
         return $this->belongsTo(PayPalWebProfile::class, 'paypal_web_profile_id');
     }

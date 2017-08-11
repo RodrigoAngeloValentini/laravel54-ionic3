@@ -36,7 +36,8 @@ class CreateOrderListener
         $plan = $event->getPlan();
         $order = $this->repository->create([
            'user_id' => \Auth::guard('api')->user()->id,
-            'value' => $plan->value
+            'value' => $plan->value,
+            'code' => $event->getPayment()->getId()
         ]);
         $event->setOrder($order);
     }
