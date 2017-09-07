@@ -27506,6 +27506,18 @@ ion-app ion-menu ion-content {
   color: #222 !important;
 }
 
+.card-video-play {
+  position: relative;
+  text-align: center;
+}
+
+.card-video-play div {
+  position: absolute;
+  top: 40%;
+  width: 100%;
+  font-size: 40px;
+}
+
 page-login ion-content {
   background-color: #222 !important;
 }

@@ -43,7 +43,7 @@ ApiRoute::version('v1', function (){
             ApiRoute::patch('/plans/{plan}/payments', 'PaymentsController@store');
 
             ApiRoute::group(['middleware' => 'check-subscriptions'], function(){
-
+                ApiRoute::resource('videos', 'VideosController', ['only' => ['index', 'show']]);
             });
 
         });

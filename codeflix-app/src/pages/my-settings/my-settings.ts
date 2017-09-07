@@ -3,12 +3,6 @@ import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angula
 import { Auth } from "../../decorators/auth.decorator";
 import { UserResource } from "../../providers/resources/user.resource"
 
-/**
- * Generated class for the MySettingsPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @Auth()
 @IonicPage()
 @Component({

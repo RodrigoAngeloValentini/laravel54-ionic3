@@ -21,6 +21,13 @@ class VideoRepositoryEloquent extends BaseRepository implements VideoRepository
     use VideoUploads;
     use Uploads;
 
+    protected $fieldSearchable = [
+        'title' => 'like',
+        'description' => 'like',
+        'serie.title' => 'like',
+        'categories.name' => 'like'
+    ];
+
     public function update(array $attributes, $id)
     {
         $model = parent::update($attributes, $id);

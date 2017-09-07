@@ -2,16 +2,11 @@
 
 namespace CodeFlix\Providers;
 
-use CodeFlix\Exceptions\SubscriptionInvalidException;
 use CodeFlix\Models\Video;
-use Dingo\Api\Exception\Handler;
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Validation\ValidationException;
 use Laravel\Dusk\DuskServiceProvider;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
-use Tymon\JWTAuth\Exceptions\JWTException;
 use Code\Validator\Cpf;
 
 class AppServiceProvider extends ServiceProvider
@@ -71,24 +66,6 @@ class AppServiceProvider extends ServiceProvider
             return $apiContext;
         });
 
-        $handler = app(Handler::class);
-        $handler->register(function (AuthenticationException $exception){
-            return response()->json(['error' => 'Unauthenticated'], 401);
-        });
-        $handler->register(function (JWTException $exception){
-            return response()->json(['error' => $exception->getMessage()], 401);
-        });
-        $handler->register(function (ValidationException $exception){
-            return response()->json([
-                'error' => $exception->getMessage(),
-                'validation_errors' => $exception->validator->getMessageBag()->toArray()
-            ], 422);
-        });
-        $handler->register(function (SubscriptionInvalidException $exception){
-            return response()->json([
-                'error' => 'subscription_valid_not_fuound',
-                'validation_errors' => $exception->getMessage()
-            ], 403);
-        });
+
     }
 }

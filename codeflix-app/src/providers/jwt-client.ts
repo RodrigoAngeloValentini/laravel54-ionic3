@@ -77,5 +77,16 @@ export class JwtClient {
             });
     }
 
+    refreshToken(){
+        return this.authHttp.post(`${ENV.API_URL}/refresh_token`, {})
+            .toPromise()
+            .then((response: Response) => {
+                let token = response.json().token;
+                this._token = token;
+                this.storage.set(ENV.TOKEN_NAME, this._token);
+                return token;
+            })
+    }
+
 
 }

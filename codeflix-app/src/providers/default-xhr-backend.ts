@@ -8,7 +8,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import {HomePage} from "../pages/home/home";
-import {LoginPage} from "../pages/login/login";
 
 @Injectable()
 export class DefaultXHRBackend extends XHRBackend{

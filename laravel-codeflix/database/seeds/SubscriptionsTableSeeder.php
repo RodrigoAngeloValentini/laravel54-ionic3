@@ -16,10 +16,10 @@ class SubscriptionsTableSeeder extends Seeder
         $orders = app(\CodeFlix\Repositories\OrderRepository::class)->all();
         $repository = app(\CodeFlix\Repositories\SubscriptionRepository::class);
 
-        foreach (range(1, 20) as $element){
+        foreach (range(1, $orders->count()) as $key => $element){
             $repository->create([
                 'plan_id' => $plans->random()->id,
-                'order_id' => $orders->random()->id
+                'order_id' => $orders[$key]->id
             ]);
         }
     }

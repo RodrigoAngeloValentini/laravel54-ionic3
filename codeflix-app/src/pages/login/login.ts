@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import {IonicPage, MenuController, NavController, NavParams, ToastController} from 'ionic-angular';
 import 'rxjs/add/operator/toPromise';
-import {Auth} from "../../providers/auth";
+import {Auth} from "../../providers/auth/auth";
 import {HomePage} from "../home/home";
 import {HomeSubscriberPage} from "../home-subscriber/home-subscriber";
+import {AuthOffline} from "../../providers/auth/auth-offline";
 
 @IonicPage()
 @Component({
@@ -17,7 +18,7 @@ export class LoginPage {
       password: "secret"
   };
 
-  constructor(public navCtrl: NavController, public menuCtrl: MenuController, public navParams: NavParams, private auth: Auth, public toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public menuCtrl: MenuController, public navParams: NavParams, private auth: Auth, private authOffline: AuthOffline, public toastCtrl: ToastController) {
       this.menuCtrl.enable(false);
   }
 
@@ -40,19 +41,38 @@ export class LoginPage {
       });
   }
 
-  loginFacebook(){
-      this.auth.loginFacebook().then((user) => {
-          this.afterLogin(user);
-      }).catch((error)=>{
-          let toast = this.toastCtrl.create({
-              message: 'Erro ao realizar login no facebook:' + error,
-              duration: 3000,
-              position: 'top',
-              cssClass: 'toast-login-error'
-          });
+  loginOffline(){
+      this.authOffline.login(this.user)
+          .then(user => {
+              this.afterLogin(user);
+          })
+          .catch((error)=>{
+              let toast = this.toastCtrl.create({
+                  message: 'EEmail invalido',
+                  duration: 3000,
+                  position: 'top',
+                  cssClass: 'toast-login-error'
+              });
 
-          toast.present();
-      });
+              toast.present();
+          });
+  }
+
+  loginFacebook(){
+      this.auth.loginFacebook()
+          .then((user) => {
+            this.afterLogin(user);
+          })
+          .catch((error)=>{
+              let toast = this.toastCtrl.create({
+                  message: 'Erro ao realizar login no facebook:' + error,
+                  duration: 3000,
+                  position: 'top',
+                  cssClass: 'toast-login-error'
+              });
+
+              toast.present();
+          });
   }
 
   afterLogin(user){

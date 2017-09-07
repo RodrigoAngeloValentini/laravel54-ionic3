@@ -31,6 +31,10 @@ module.exports = {
             {
                 test: /\.js$/,
                 loader: process.env.IONIC_WEBPACK_TRANSPILE_LOADER
+            },
+            {
+                test: /\.sql/,
+                loader: 'raw-loader'
             }
         ]
     },

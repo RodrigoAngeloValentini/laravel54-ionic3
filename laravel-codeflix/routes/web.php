@@ -57,13 +57,11 @@ Route::group(['prefix' => 'admin','as' => 'admin.','namespace' => 'Admin\\'], fu
             Route::get('{video}/uploads','VideoUploadsController@create')->name('uploads.create');
             Route::post('{video}/uploads','VideoUploadsController@store')->name('uploads.store');
         });
-
-        Route::get('videos/{video}/thumb_asset', 'VideoController@thumbAsset')->name('videos.thumb_asset');
-        Route::get('videos/{video}/thumb_small_asset', 'VideoController@thumbSmallAsset')->name('videos.thumb_small_asset');
-        Route::get('videos/{video}/file_asset', 'VideoController@fileAsset')->name('videos.file_asset');
-        Route::resource('videos', 'VideoController');
     });
-
+    Route::get('videos/{video}/thumb_asset', 'VideoController@thumbAsset')->name('videos.thumb_asset');
+    Route::get('videos/{video}/thumb_small_asset', 'VideoController@thumbSmallAsset')->name('videos.thumb_small_asset');
+    Route::get('videos/{video}/file_asset', 'VideoController@fileAsset')->name('videos.file_asset');
+    Route::resource('videos', 'VideoController');
 });
 
 Route::get('/force-login', function (){
